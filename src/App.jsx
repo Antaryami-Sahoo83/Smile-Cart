@@ -1,7 +1,8 @@
 import React from "react";
 
-import { Button } from "neetoui";
+import Product from "./components/Product";
+// import { Button } from "neetoui";
 
-const App = () => <Button label="Click me" style="secondary" />;
+const App = () => <Product />;
 
 export default App;
