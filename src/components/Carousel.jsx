@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import classNames from "classnames";
 import { Left, Right } from "neetoicons";
 import { Button } from "neetoui";
 
@@ -18,7 +19,7 @@ const Carousel = ({ imageUrls, title }) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex flex-col items-center">
       <Button
         className="shrink-0 focus-within:ring-0 hover:bg-transparent"
         icon={Left}
@@ -36,6 +37,18 @@ const Carousel = ({ imageUrls, title }) => {
         style="text"
         onClick={handleNext}
       />
+      <div className="flex space-x-1">
+        {imageUrls.map((_, index) => (
+          <span
+            key={index}
+            className={classNames(
+              "neeto-ui-border-black neeto-ui-rounded-full h-3 w-3 cursor-pointer border",
+              { "neeto-ui-bg-black": index === currentIndex }
+            )}
+            onClick={() => setCurrentIndex(index)}
+          />
+        ))}
+      </div>
     </div>
   );
 };
