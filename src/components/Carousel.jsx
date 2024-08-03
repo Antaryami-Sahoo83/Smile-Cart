@@ -26,7 +26,7 @@ const Carousel = ({ imageUrls, title }) => {
   const timerRef = useRef(null);
 
   useEffect(() => {
-    timerRef.current = setInterval(handleNext, 3000);
+    timerRef.current = setInterval(handleNext, 3000); // sliding image
 
     return () => clearInterval(timerRef.current);
   }, []);
