@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Search } from "@bigbinary/neeto-icons";
 import productsApi from "apis/products";
 import Header from "components/commons/Header";
+import useDebounce from "hooks/useDebounce";
 import { Spinner, NoData, Input } from "neetoui";
 import { isEmpty } from "ramda";
 
@@ -12,10 +13,11 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [searchKey, setSearchKey] = useState("");
+  const debouncedSearchKey = useDebounce(searchKey);
 
   const fetchProducts = async () => {
     try {
-      const data = await productsApi.fetch({ searchTerm: searchKey });
+      const data = await productsApi.fetch({ searchTerm: debouncedSearchKey });
       setProducts(data.products);
     } catch (error) {
       console.log("An error occurred:", error);
@@ -47,7 +49,7 @@ const ProductList = () => {
             prefix={<Search />}
             type="search"
             value={searchKey}
-            onChange={event => setSearchKey(event.target.value)}
+            onChange={e => setSearchKey(e.target.value)}
           />
         }
       />
