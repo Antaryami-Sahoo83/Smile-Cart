@@ -2,9 +2,10 @@ import React from "react";
 
 import PageNotFound from "components/PageNotFound";
 import { NavLink, Route, Switch } from "react-router-dom";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
-import Home from "./components/Home";
 import Product from "./components/Product";
+import ProductList from "./components/ProductList";
 
 const App = () => (
   <>
@@ -17,8 +18,9 @@ const App = () => (
       </NavLink>
     </div>
     <Switch>
-      <Route exact component={Home} path="/" />
+      <Route exact component={ProductList} path="/products" />
       <Route exact component={Product} path="/product" />
+      <Redirect exact from="/" to="/products" />
       <Route component={PageNotFound} path="*" />
     </Switch>
   </>

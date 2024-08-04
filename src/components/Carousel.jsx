@@ -6,6 +6,7 @@ import { Button } from "neetoui";
 
 const Carousel = ({ imageUrls, title }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const timerRef = useRef(null);
 
   const resetTimer = () => {
     clearInterval(timerRef.current);
@@ -22,8 +23,6 @@ const Carousel = ({ imageUrls, title }) => {
     );
     resetTimer();
   };
-
-  const timerRef = useRef(null);
 
   useEffect(() => {
     timerRef.current = setInterval(handleNext, 3000); // sliding image
