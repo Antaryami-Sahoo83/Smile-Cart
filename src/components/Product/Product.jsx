@@ -1,20 +1,26 @@
 import { useEffect, useState } from "react";
 
 import productsApi from "apis/products";
+import { Header, PageNotFound } from "components/commons";
 import { Typography, Spinner } from "neetoui";
 import { isNotNil, append } from "ramda";
+import { useParams } from "react-router-dom";
 
 import Carousel from "./Carousel";
 
 const Product = () => {
   const [product, setProduct] = useState({});
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+
+  const { slug } = useParams();
 
   const fetchProduct = async () => {
     try {
-      const product = await productsApi.show();
-      setProduct(product);
+      const response = await productsApi.show(slug);
+      setProduct(response);
     } catch (error) {
+      setIsError(true);
       console.log("An error occurred:", error);
     } finally {
       setIsLoading(false);
@@ -24,6 +30,7 @@ const Product = () => {
   useEffect(() => {
     fetchProduct();
   }, []);
+  if (isError) return <PageNotFound />;
 
   const { name, description, mrp, offerPrice, imageUrls, imageUrl } = product;
 
@@ -40,12 +47,7 @@ const Product = () => {
 
   return (
     <div className="px-6 pb-6">
-      <div>
-        <Typography className="py-2 text-4xl font-semibold" style="h1">
-          {name}
-        </Typography>
-        <hr className="border-2 border-black" />
-      </div>
+      <Header title={name} />
       <div className="mt-16 flex gap-4">
         <div className="w-2/5">
           <div className="flex justify-center gap-16">
