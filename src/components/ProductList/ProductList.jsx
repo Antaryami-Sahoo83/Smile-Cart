@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Search } from "@bigbinary/neeto-icons";
 import productsApi from "apis/products";
 import Header from "components/commons/Header";
-import useDebounce from "hooks/useDebounce";
+import useDebounce from "components/hooks/useDebounce";
 import { Spinner, NoData, Input } from "neetoui";
 import { isEmpty } from "ramda";
 
